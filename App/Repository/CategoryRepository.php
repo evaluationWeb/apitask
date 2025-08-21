@@ -60,7 +60,7 @@ class CategoryRepository {
             $request = "SELECT c.id_category AS idCategory , c.name FROM category AS c";
             $req = $this->connexion->prepare($request);
             $req->execute();
-            return $req->fetchAll(\PDO::FETCH_CLASS, Category::class);
+            return $req->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }

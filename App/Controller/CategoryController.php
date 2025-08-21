@@ -14,6 +14,10 @@ class CategoryController {
         $this->categoryRepository = new CategoryRepository();
     }
 
-    
+    public function getAllCategory() {
+        //liste des categories
+        $categories = $this->categoryRepository->findAllCategory();
+        Utilitaire::JsonResponse($categories);
+    }
 
 }
