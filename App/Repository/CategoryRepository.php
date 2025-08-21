@@ -13,7 +13,7 @@ class CategoryRepository {
     //Constructeur
     public function __construct()
     {
-        $this->connexion = (new BDD)->connectBDD();
+        $this->connexion = (new Bdd)->connectBDD();
     }
 
     //Méthodes
