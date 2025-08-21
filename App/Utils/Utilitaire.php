@@ -28,4 +28,16 @@ class Utilitaire {
     
         return htmlspecialchars(strip_tags(trim($value)), ENT_NOQUOTES);
     }
+
+    //Méthode qui deshydrate l'objet User en tableau
+    public static function toArray(object $category) :array {
+        $data = [];
+        foreach ($category as $key => $value) {
+            $method = 'get' . ucfirst($key);
+            if (method_exists($category, $method)) {
+                $user[$key] = $category->$method();
+            }
+        }
+        return $data;         
+    }
 }
