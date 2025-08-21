@@ -11,4 +11,11 @@ class Utilitaire {
         http_response_code($status);
         echo json_encode($data);
     }
+
+
+    //fonction pour récupérer le body de la requête
+    public static function getRequestBody(): bool|string
+    {
+        return file_get_contents('php://input');
+    }
 }

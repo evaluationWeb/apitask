@@ -1,0 +1,21 @@
+meta {
+  name: test post json
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost/apitask/testpost
+  body: text
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "mathieu"
+  }
+}
+
+body:text {
+  "bonjour"
+}

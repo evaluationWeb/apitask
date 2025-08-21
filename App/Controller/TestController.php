@@ -10,4 +10,10 @@ class TestController {
         $tab = ["nom" => "mithridate", "prenom" => "mathieu", "email" => "mathieum@adrar.fr"];
         Utilitaire::JsonResponse($tab);
     }
+
+    public function testPostJson() {
+        $json = Utilitaire::getRequestBody();
+        $json = json_decode($json);
+        dd($json->name);
+    }
 }

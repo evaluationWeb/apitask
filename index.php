@@ -23,6 +23,9 @@ switch (substr($path, strlen(BASE_URL))) {
     case "/test" :
         $testController->testJson();
         break;
+    case "/testpost": 
+        $testController->testPostJson();
+        break;
     default:
         echo "erreur";
         break;
