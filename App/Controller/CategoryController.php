@@ -43,7 +43,7 @@ class CategoryController {
             } else {
                 $this->categoryRepository->saveCategory($category);
                 $codeStatus = 201;
-                $reponse = [$category];
+                $reponse = ["id"=>$category->getIdCategory(),"name" => $category->getName() ];
             }
         }
         //retourner la réponse HTTP (json)

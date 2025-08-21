@@ -60,7 +60,7 @@ class CategoryRepository {
             $request = "SELECT c.id_category AS idCategory , c.name FROM category AS c";
             $req = $this->connexion->prepare($request);
             $req->execute();
-            return $req->fetchAll(\PDO::FETCH_ASSOC);
+            return $req->fetchAll(\PDO::FETCH_CLASS, Category::class);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -82,8 +82,9 @@ class CategoryRepository {
             $req->bindParam(1, $name, \PDO::PARAM_STR);
             //exécuter la requête
             $req->execute();
+            $req->setFetchMode(\PDO::FETCH_CLASS, Category::class);
             //récupérer le resultat
-            $data = $req->fetch(\PDO::FETCH_ASSOC);
+            $data = $req->fetch();
             //Test si l'enrgistrement est vide
             if (empty($data)) {
                 return false;
