@@ -93,4 +93,100 @@ class CategoryRepository {
             return false;
         }
     }
+    
+    /**
+     * Méthodes qui supprime une category en BDD
+     * @param Category $category la category à supprimer
+     */
+    public function deleteCategory(Category $category): void
+    {
+        try {
+            $id = $category->getIdCategory();
+            $requestAsso = "DELETE FROM task_category WHERE id_category = ?";
+            $req = $this->connexion->prepare($requestAsso);
+            $req->bindParam(1, $id, \PDO::PARAM_INT);
+            $req->execute();
+            $request = "DELETE FROM category WHERE id_category = ?";
+            $req2 = $this->connexion->prepare($request);
+            $req2->bindParam(1, $id, \PDO::PARAM_INT);
+            $req2->execute();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Méthode qui retourne une Category depuis son ID
+     * @param Category $category
+     * @return Category | stdClass | null retourne une Category si elle existe
+     */
+    public function findCategory(Category $category): null | Category
+    {
+        try {
+            $id = $category->getIdCategory();
+            $request = "SELECT c.id_category AS idCategory, c.name FROM category AS c WHERE c.id_category = ?";
+            //préparer la requête
+            $req = $this->connexion->prepare($request);
+            //assigner le paramètre
+            $req->bindParam(1, $id, \PDO::PARAM_INT);
+            //exécuter la requête
+            $req->execute();
+            $req->setFetchMode(\PDO::FETCH_CLASS, Category::class);
+            //récupérer le resultat
+            return $req->fetch();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Méthode qui retourne une Category depuis name
+     * @param Category $category 
+     * @return Category | stdClass | null retourne une Category si elle existe
+     */
+    public function findCategoryByName(Category $category): null | Category
+    {
+        try {
+            $name = $category->getName();
+            $request = "SELECT c.id_category AS idCategory, c.name FROM category AS c WHERE c.name = ?";
+            //préparer la requête
+            $req = $this->connexion->prepare($request);
+            //assigner le paramètre
+            $req->bindParam(1, $name, \PDO::PARAM_STR);
+            //exécuter la requête
+            $req->execute();
+            $req->setFetchMode(\PDO::FETCH_CLASS, Category::class);
+            //récupérer le resultat
+            return $req->fetch();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * Méthode qui met à jour un enregistrement en BDD
+     * requête de MAJ udpate
+     * @param Category à mettre à jour 
+     * @return void
+     */
+    public function updateCategory(Category $category): void {
+        try {
+            //Récupération de la valeur de name (category)
+            $name = $category->getName();
+            $id = $category->getIdCategory();
+            //Stocker la requête dans une variable
+            $request = "UPDATE category set name = ? WHERE id_category = ?";
+            //1 préparer la requête
+            $req = $this->connexion->prepare($request);
+            //2 Bind les paramètres
+            $req->bindParam(1, $name, \PDO::PARAM_STR);
+            $req->bindParam(2, $id, \PDO::PARAM_INT);
+            //3 executer la requête
+            $req->execute();
+         
+            //Capture des erreurs 
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
 }

@@ -14,6 +14,6 @@ class TestController {
     public function testPostJson() {
         $json = Utilitaire::getRequestBody();
         $json = json_decode($json);
-        dd($json->name);
+        //dd($json->name);
     }
 }
