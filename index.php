@@ -29,7 +29,15 @@ switch (substr($path, strlen(BASE_URL))) {
         $testController->testPostJson();
         break;
     case "/category":
-        $categoryController->getAllCategory();
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $categoryController->getAllCategory();
+        } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $categoryController->addCategory();
+        } else if ($_SERVER["REQUEST_METHOD"] == "PUT") {
+
+        } else if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+
+        }
         break;
     default:
         echo "erreur";

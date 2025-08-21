@@ -1,0 +1,17 @@
+meta {
+  name: Ajouter une catégorie
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost/apitask/category
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    'name':"perso"
+  }
+}
